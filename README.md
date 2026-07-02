@@ -97,7 +97,7 @@ Push secrets *before* deploying code that needs them.
 
 - **`workers.json` is committed.** The official scaffold gitignores it, but it only contains IDs (workspace + worker), not secrets, and committing it means any clone of this repo deploys updates to the same workers. Deleting it makes the next deploy create a brand-new worker — don't.
 - One worker per directory, fully self-contained. Duplication between workers is fine; simplicity beats sharing.
-- `.agents/` holds the official platform guide and skills from the `ntn` scaffold, shared once at the repo root. `AGENTS.md` (and the `CLAUDE.md` symlink) document the repo conventions for AI agents — this repo is built to be worked on with Claude Code / Codex.
+- `.agents/` holds the official platform guide and skills from the `ntn` scaffold, shared once at the repo root; `.examples/` holds the scaffold's reference example for each capability type. Both are refreshed automatically by `new-worker.sh`. `AGENTS.md` (and the `CLAUDE.md` symlink) document the repo conventions for AI agents — this repo is built to be worked on with Claude Code / Codex.
 
 ## Using these workers yourself
 

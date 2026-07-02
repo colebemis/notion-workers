@@ -19,13 +19,18 @@ fi
 
 ntn workers new "$name" --no-git --no-install --alpha
 
-# Refresh the shared agent docs at the repo root from the latest scaffold
+# Refresh the shared agent docs and capability examples at the repo root
+# from the latest scaffold
 if [[ -d "$name/.agents" ]]; then
 	rm -rf .agents
 	mv "$name/.agents" .agents
 fi
+if [[ -d "$name/.examples" ]]; then
+	rm -rf .examples
+	mv "$name/.examples" .examples
+fi
 
-rm -rf "$name/.claude" "$name/.examples" "$name/docs"
+rm -rf "$name/.claude" "$name/docs"
 rm -f "$name"/{AGENTS.md,CLAUDE.md,.claudeignore,.codexignore,.gitignore,LICENSE.md,README.md}
 
 # Strip "type": "module" — `ntn workers exec --local` (CLI 0.16.0) fails on ESM
