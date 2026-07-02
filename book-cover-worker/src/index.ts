@@ -1,4 +1,5 @@
 import { Worker } from "@notionhq/workers";
+import { j } from "@notionhq/workers/schema-builder";
 
 const worker = new Worker();
 
@@ -17,28 +18,15 @@ worker.tool<GetBookCoverInput, GetBookCoverOutput>("getBookCover", {
   title: "Get Book Cover",
   description:
     "Get the cover image URL for a book by its ISBN from OpenLibrary.",
-  schema: {
-    type: "object",
-    properties: {
-      isbn: {
-        type: "string",
-        description: "The ISBN of the book",
-      },
-      size: {
-        anyOf: [
-          {
-            type: "string",
-            enum: ["S", "M", "L"],
-            description:
-              "Cover image size: S (small), M (medium), L (large). Defaults to M.",
-          },
-          { type: "null" },
-        ],
-      },
-    },
-    required: ["isbn", "size"],
-    additionalProperties: false,
-  },
+  schema: j.object({
+    isbn: j.string().describe("The ISBN of the book"),
+    size: j
+      .enum("S", "M", "L")
+      .describe(
+        "Cover image size: S (small), M (medium), L (large). Defaults to M."
+      )
+      .nullable(),
+  }),
   execute: async (input) => {
     const size = input.size ?? "M";
     const url = `https://covers.openlibrary.org/b/isbn/${input.isbn}-${size}.jpg`;

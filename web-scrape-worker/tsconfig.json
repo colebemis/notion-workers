@@ -2,12 +2,15 @@
 	"compilerOptions": {
 		"target": "ES2020",
 		"module": "nodenext",
-		"moduleResolution": "nodenext",
-		"outDir": "dist",
+		"outDir": "./dist",
+		"rootDir": "./src",
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"moduleResolution": "nodenext"
 	},
-	"include": ["src/**/*"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
 }

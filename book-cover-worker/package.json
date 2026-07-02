@@ -1,20 +1,21 @@
 {
-  "name": "book-cover-worker",
-  "version": "0.0.1",
-  "private": true,
-  "engines": {
-    "node": ">=22"
-  },
-  "scripts": {
-    "build": "tsc",
-    "check": "tsc --noEmit",
-    "start": "tsx src/index.ts"
-  },
-  "dependencies": {
-    "@notionhq/workers": "^0.0.85"
-  },
-  "devDependencies": {
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.0"
-  }
+	"name": "book-cover-worker",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"build": "tsc",
+		"check": "tsc --noEmit"
+	},
+	"engines": {
+		"node": ">=22.0.0",
+		"npm": ">=10.9.2"
+	},
+	"devDependencies": {
+		"@types/node": "^22.9.0",
+		"tsx": "^4.20.6",
+		"typescript": "^5.8.0"
+	},
+	"dependencies": {
+		"@notionhq/workers": "^0.4.0"
+	}
 }

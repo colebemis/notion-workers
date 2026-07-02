@@ -1,4 +1,5 @@
 import { Worker } from "@notionhq/workers";
+import { j } from "@notionhq/workers/schema-builder";
 
 const worker = new Worker();
 export default worker;
@@ -31,32 +32,19 @@ async function firecrawlScrape(url: string, formats: (string | Record<string, un
 	return result.data;
 }
 
-const urlSchema = {
-	type: "object" as const,
-	properties: {
-		url: {
-			type: "string" as const,
-			description: "The URL of the web page.",
-		},
-	},
-	required: ["url"] as const,
-	additionalProperties: false as const,
-};
+const urlSchema = j.object({
+	url: j.string().describe("The URL of the web page."),
+});
 
 worker.tool<UrlInput, MarkdownOutput>("urlToMarkdown", {
 	title: "URL to Markdown",
 	description: "Fetches a web page and returns its content as clean markdown.",
 	schema: urlSchema,
-	outputSchema: {
-		type: "object",
-		properties: {
-			markdown: { type: "string" },
-			title: { type: "string" },
-			sourceUrl: { type: "string" },
-		},
-		required: ["markdown", "title", "sourceUrl"],
-		additionalProperties: false,
-	},
+	outputSchema: j.object({
+		markdown: j.string(),
+		title: j.string(),
+		sourceUrl: j.string(),
+	}),
 	execute: async ({ url }) => {
 		const data = await firecrawlScrape(url, ["markdown"], { onlyMainContent: true });
 		return {
@@ -73,15 +61,10 @@ worker.tool<UrlInput, ScreenshotOutput>("urlToScreenshot", {
 	title: "URL to Screenshot",
 	description: "Takes a screenshot of a web page and returns it as a base64-encoded image.",
 	schema: urlSchema,
-	outputSchema: {
-		type: "object",
-		properties: {
-			screenshot: { type: "string" },
-			sourceUrl: { type: "string" },
-		},
-		required: ["screenshot", "sourceUrl"],
-		additionalProperties: false,
-	},
+	outputSchema: j.object({
+		screenshot: j.string(),
+		sourceUrl: j.string(),
+	}),
 	execute: async ({ url }) => {
 		const data = await firecrawlScrape(url, [{ type: "screenshot", fullPage: true }]);
 		return {
