@@ -1,6 +1,6 @@
 # readwise
 
-Saves links to [Readwise Reader](https://read.readwise.io) to read later.
+Saves links to [Readwise Reader](https://read.readwise.io) to read or watch later.
 
 ## Tools
 

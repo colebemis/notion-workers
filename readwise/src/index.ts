@@ -21,7 +21,7 @@ type SaveLinkOutput = {
 worker.tool<SaveLinkInput, SaveLinkOutput>("saveLink", {
 	title: "Save Link to Readwise",
 	description:
-		"Saves a URL (article, video, PDF, tweet, etc.) to Readwise Reader to read later. Returns the Reader document ID and link.",
+		"Saves a URL (article, video, PDF, tweet, etc.) to Readwise Reader to read or watch later. Returns the Reader document ID and link.",
 	schema: j.object({
 		url: j.string().describe("The URL to save."),
 		title: j.string().describe("Optional title override; Reader infers one from the page if omitted.").nullable(),
