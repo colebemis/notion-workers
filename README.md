@@ -8,8 +8,8 @@ Each top-level directory is one deployed worker — a self-contained npm project
 
 | Worker | What it does |
 | :-- | :-- |
-| [`book-cover-worker`](book-cover-worker/) | Looks up book cover image URLs by ISBN from OpenLibrary |
-| [`web-scrape-worker`](web-scrape-worker/) | Fetches web pages as markdown or screenshots via Firecrawl |
+| [`openlibrary`](openlibrary/) | Looks up book cover image URLs by ISBN from OpenLibrary |
+| [`firecrawl`](firecrawl/) | Fetches web pages as markdown or screenshots via Firecrawl |
 
 ## Setup (once per machine)
 
@@ -25,7 +25,7 @@ Requires Node ≥ 22.
 Everything happens inside the worker's directory:
 
 ```shell
-cd book-cover-worker
+cd openlibrary
 npm install                # first time only
 npm run check              # type-check
 ```

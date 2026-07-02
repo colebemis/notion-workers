@@ -1,4 +1,4 @@
-# book-cover-worker
+# openlibrary
 
 Looks up book cover images from [OpenLibrary Covers](https://openlibrary.org/dev/docs/api/covers).
 

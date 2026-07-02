@@ -1,4 +1,4 @@
-# web-scrape-worker
+# firecrawl
 
 Fetches web page content via [Firecrawl](https://firecrawl.dev). Useful for pulling articles, docs, or blog posts into Notion, or capturing how a page looks.
 

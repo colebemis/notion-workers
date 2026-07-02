@@ -1,6 +1,6 @@
 {
-	"name": "book-cover-worker",
-	"version": "0.0.1",
+	"name": "firecrawl",
+	"version": "0.0.0",
 	"private": true,
 	"scripts": {
 		"build": "tsc",
