@@ -1,6 +1,6 @@
 # readwise
 
-Saves links to [Readwise Reader](https://read.readwise.io) to read later. Meant as an agent tool: capture an article/video URL and file it in Reader.
+Saves links to [Readwise Reader](https://read.readwise.io) to read later.
 
 ## Tools
 
