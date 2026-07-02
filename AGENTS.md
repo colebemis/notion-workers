@@ -12,6 +12,7 @@ For the full Notion Workers platform guide — capability API (tools, syncs, aut
 - **Secrets are never committed.** Local dev reads `.env` (gitignored); deployed workers read env vars set via `ntn workers env set` / `ntn workers env push`. If you add a new secret, push it before deploying code that needs it.
 - Each worker has a short `README.md`: what it does, its capabilities, and required env vars. Keep it current when you change capabilities.
 - **Tool schemas use the `j` builder** (`import { j } from "@notionhq/workers/schema-builder"`). SDK ≥ 0.4.0 no longer accepts raw JSON Schema objects in `tool()` — some examples in `.agents/INSTRUCTIONS.md` predate this; `.examples/tool-example.ts` shows the current API.
+- **Every tool input property is required.** The SDK rejects schemas whose properties aren't all in `required`; `.nullable()` means present-but-null, not omittable. Agent callers omit fields they don't need and fail validation, so keep tool inputs to fields the caller will always send.
 - **No `"type": "module"` in worker `package.json` files.** `ntn workers exec --local` (CLI 0.16.0) fails on ESM workers with `Cannot read properties of undefined (reading 'run')`. CJS mode works locally and deploys identically (requires `typescript` ≥ 5.8 to type-check importing the ESM SDK). `new-worker.sh` strips this from new scaffolds automatically.
 
 ## Workflows
