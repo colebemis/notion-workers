@@ -4,13 +4,7 @@ import { j } from "@notionhq/workers/schema-builder";
 const worker = new Worker();
 export default worker;
 
-type SaveLinkInput = {
-	url: string;
-	title?: string | null;
-	tags?: string[] | null;
-	notes?: string | null;
-	location?: string | null;
-};
+type SaveLinkInput = { url: string };
 
 type SaveLinkOutput = {
 	id: string;
@@ -24,20 +18,13 @@ worker.tool<SaveLinkInput, SaveLinkOutput>("saveLink", {
 		"Saves a URL (article, video, PDF, tweet, etc.) to Readwise Reader to read or watch later. Returns the Reader document ID and link.",
 	schema: j.object({
 		url: j.string().describe("The URL to save."),
-		title: j.string().describe("Optional title override; Reader infers one from the page if omitted.").nullable(),
-		tags: j.array(j.string()).describe("Optional tags to apply to the saved document.").nullable(),
-		notes: j.string().describe("Optional note to attach to the saved document.").nullable(),
-		location: j
-			.string()
-			.describe('Where to file it in Reader: "new", "later", or "archive". Defaults to "new".')
-			.nullable(),
 	}),
 	outputSchema: j.object({
 		id: j.string(),
 		readerUrl: j.string(),
 		alreadyExisted: j.boolean(),
 	}),
-	execute: async ({ url, title, tags, notes, location }) => {
+	execute: async ({ url }) => {
 		const token = process.env.READWISE_TOKEN;
 		if (!token) throw new Error("READWISE_TOKEN not set");
 
@@ -47,14 +34,7 @@ worker.tool<SaveLinkInput, SaveLinkOutput>("saveLink", {
 				"Content-Type": "application/json",
 				Authorization: `Token ${token}`,
 			},
-			body: JSON.stringify({
-				url,
-				saved_using: "notion-worker",
-				...(title ? { title } : {}),
-				...(tags?.length ? { tags } : {}),
-				...(notes ? { notes } : {}),
-				...(location ? { location } : {}),
-			}),
+			body: JSON.stringify({ url, saved_using: "notion-worker" }),
 		});
 
 		if (!response.ok) {
