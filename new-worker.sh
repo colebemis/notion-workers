@@ -28,6 +28,17 @@ fi
 rm -rf "$name/.claude" "$name/.examples" "$name/docs"
 rm -f "$name"/{AGENTS.md,CLAUDE.md,.claudeignore,.codexignore,.gitignore,LICENSE.md,README.md}
 
+# Strip "type": "module" — `ntn workers exec --local` (CLI 0.16.0) fails on ESM
+# workers ("Cannot read properties of undefined (reading 'run')"). CJS mode
+# works locally and deploys identically.
+node -e "
+	const fs = require('fs');
+	const path = '$name/package.json';
+	const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
+	delete pkg.type;
+	fs.writeFileSync(path, JSON.stringify(pkg, null, '\t') + '\n');
+"
+
 cat > "$name/README.md" <<EOF
 # $name
 
