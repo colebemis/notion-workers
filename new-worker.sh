@@ -36,6 +36,7 @@ node -e "
 	const path = '$name/package.json';
 	const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
 	delete pkg.type;
+	pkg.name = '$name';
 	fs.writeFileSync(path, JSON.stringify(pkg, null, '\t') + '\n');
 "
 
