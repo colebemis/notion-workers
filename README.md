@@ -1,6 +1,6 @@
 # notion-workers
 
-All of my [Notion Workers](https://developers.notion.com/workers/get-started/overview) in one repo. Workers are small TypeScript programs hosted by Notion that add tools to Notion custom agents, sync external data into databases, and receive webhooks.
+[Notion Workers](https://developers.notion.com/workers/get-started/overview) are small TypeScript programs hosted by Notion that add tools to Notion custom agents, sync external data into databases, and receive webhooks. These are the workers I use in my personal workspace.
 
 Each top-level directory is one deployed worker — a self-contained npm project (own `package.json`, lockfile, `workers.json`). There are no shared dependencies and no root `package.json`; every command runs from inside a worker's directory.
 
@@ -11,7 +11,7 @@ Each top-level directory is one deployed worker — a self-contained npm project
 | [`openlibrary`](openlibrary/) | Looks up book cover image URLs by ISBN from OpenLibrary |
 | [`firecrawl`](firecrawl/) | Fetches web pages as markdown or screenshots via Firecrawl |
 | [`readwise`](readwise/) | Saves links to Readwise Reader to read or watch later |
-| [`twitter-bookmarks`](twitter-bookmarks/) | Syncs X (Twitter) bookmarks into a Notion database |
+| [`twitter-bookmarks`](twitter-bookmarks/) | Syncs Twitter bookmarks |
 
 ## Setup (once per machine)
 
@@ -97,7 +97,7 @@ Push secrets *before* deploying code that needs them.
 
 ## Conventions
 
-- **`workers.json` is committed.** The official scaffold gitignores it, but it only contains IDs (workspace + worker), not secrets, and committing it means any clone of this repo deploys updates to the same workers. Deleting it makes the next deploy create a brand-new worker — don't.
+- **`workers.json` is committed.** The official scaffold gitignores it, but it only contains IDs (workspace + worker), not secrets. It's what ties each directory to *my* deployed worker — I commit it so that when I clone this repo on another machine, `ntn workers deploy` updates the existing worker instead of creating a new one. If you're copying a worker into your own setup, delete it and let your first deploy create your own (see [Using these workers yourself](#using-these-workers-yourself)).
 - One worker per directory, fully self-contained. Duplication between workers is fine; simplicity beats sharing.
 - `.agents/` holds the official platform guide and skills from the `ntn` scaffold, shared once at the repo root; `.examples/` holds the scaffold's reference example for each capability type. Both are refreshed automatically by `new-worker.sh`. `AGENTS.md` (and the `CLAUDE.md` symlink) document the repo conventions for AI agents — this repo is built to be worked on with Claude Code / Codex.
 
