@@ -13,6 +13,28 @@ Each top-level directory is one deployed worker — a self-contained npm project
 | [`readwise`](readwise/) | Saves links to Readwise Reader to read or watch later |
 | [`twitter-bookmarks`](twitter-bookmarks/) | Syncs Twitter bookmarks |
 
+## Using these workers yourself
+
+Feel free to copy any worker into your own setup. The easiest way is to paste this prompt into a coding agent:
+
+```text
+List the workers in https://github.com/colebemis/notion-workers and ask me
+which ones I want. Copy those directories into my project and set them up
+as my own Notion Workers: delete each workers.json (it points at the
+author's workspace — my first deploy creates my own), help me install the
+ntn CLI and run `ntn login` if I haven't, set the env vars listed in each
+worker's README, then deploy each with `ntn workers deploy --name <name>`
+and run one test call to verify.
+```
+
+Or by hand:
+
+1. Copy the worker's directory.
+2. **Delete `workers.json`** (it points at my workspace).
+3. `ntn login`, add any required secrets (see the worker's README), then `ntn workers deploy --name <name>`.
+
+Everything below is how I develop the workers in this repo.
+
 ## Setup (once per machine)
 
 ```shell
@@ -100,14 +122,6 @@ Push secrets *before* deploying code that needs them.
 - **`workers.json` is committed.** The official scaffold gitignores it, but it only contains IDs (workspace + worker), not secrets. It's what ties each directory to *my* deployed worker — I commit it so that when I clone this repo on another machine, `ntn workers deploy` updates the existing worker instead of creating a new one. If you're copying a worker into your own setup, delete it and let your first deploy create your own (see [Using these workers yourself](#using-these-workers-yourself)).
 - One worker per directory, fully self-contained. Duplication between workers is fine; simplicity beats sharing.
 - `.agents/` holds the official platform guide and skills from the `ntn` scaffold, shared once at the repo root; `.examples/` holds the scaffold's reference example for each capability type. Both are refreshed automatically by `new-worker.sh`. `AGENTS.md` (and the `CLAUDE.md` symlink) document the repo conventions for AI agents — this repo is built to be worked on with Claude Code / Codex.
-
-## Using these workers yourself
-
-Feel free to copy any worker into your own setup:
-
-1. Copy the worker's directory.
-2. **Delete `workers.json`** (it points at my workspace).
-3. `ntn login`, add any required secrets (see the worker's README), then `ntn workers deploy --name <name>`.
 
 ## Reference
 
