@@ -15,7 +15,7 @@ Each top-level directory is one deployed worker — a self-contained npm project
 
 ## Using these workers yourself
 
-Feel free to copy any worker into your own setup. The easiest way is to paste this prompt into a coding agent:
+Feel free to copy any worker into your own setup. The easiest way is to paste this prompt into your coding agent:
 
 ```text
 List the workers in https://github.com/colebemis/notion-workers and ask me
