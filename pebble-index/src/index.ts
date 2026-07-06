@@ -23,6 +23,29 @@ const TEXT_FIELDS = [
 	"summary",
 ];
 
+// The Pebble app posts multipart/form-data (fields: transcription, recordedAt,
+// client), which the platform doesn't parse — event.body arrives as {} and the
+// form fields are only in rawBody.
+function parseMultipart(
+	rawBody: string,
+	contentType: string,
+): Record<string, string> | undefined {
+	const boundaryMatch = /boundary=(?:"([^"]+)"|([^;]+))/i.exec(contentType);
+	const boundary = (boundaryMatch?.[1] ?? boundaryMatch?.[2])?.trim();
+	if (!boundary) return undefined;
+
+	const fields: Record<string, string> = {};
+	for (const part of rawBody.split(`--${boundary}`)) {
+		const headerEnd = part.indexOf("\r\n\r\n");
+		if (headerEnd === -1) continue;
+		const headers = part.slice(0, headerEnd);
+		const name = /name="([^"]+)"/.exec(headers)?.[1];
+		if (!name) continue;
+		fields[name] = part.slice(headerEnd + 4).replace(/\r\n$/, "");
+	}
+	return Object.keys(fields).length > 0 ? fields : undefined;
+}
+
 function extractText(body: unknown): string | undefined {
 	if (typeof body === "string" && body.trim()) return body;
 	if (typeof body !== "object" || body === null) return undefined;
@@ -81,9 +104,25 @@ worker.webhook("onVoiceNote", {
 		"Receives a voice note from the Pebble Index 01 ring and creates a page in the configured database.",
 	execute: async (events, { notion }) => {
 		for (const event of events) {
-			console.log(`Delivery ${event.deliveryId}:`, JSON.stringify(event.body));
+			// Log the full request: the ring's payload format is undocumented, and
+			// some deliveries arrive with an empty parsed body — the raw body and
+			// headers are the only way to see what it actually sent.
+			console.log(
+				`Delivery ${event.deliveryId}: ${event.method}`,
+				JSON.stringify({
+					headers: event.headers,
+					body: event.body,
+					rawBody: event.rawBody?.slice(0, 4000),
+				}),
+			);
 
-			const text = extractText(event.body);
+			const contentType = event.headers["content-type"] ?? "";
+			const payload =
+				contentType.includes("multipart/form-data") && event.rawBody
+					? (parseMultipart(event.rawBody, contentType) ?? event.body)
+					: event.body;
+
+			const text = extractText(payload);
 			if (!text) {
 				console.warn(
 					`Delivery ${event.deliveryId}: no text field found in payload, skipping`,
