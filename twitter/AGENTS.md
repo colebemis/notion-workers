@@ -1,4 +1,4 @@
-# twitter-bookmarks — worker-specific rules
+# twitter — worker-specific rules
 
 Auth here is self-managed with **single-use rotating X refresh tokens carried in sync state** (see README "Auth"). This OVERRIDES the monorepo verification norms:
 

@@ -11,7 +11,7 @@ Each top-level directory is one deployed worker — a self-contained npm project
 | [`openlibrary`](openlibrary/) | Looks up book cover image URLs by ISBN from OpenLibrary |
 | [`firecrawl`](firecrawl/) | Fetches web pages as markdown or screenshots via Firecrawl |
 | [`readwise`](readwise/) | Saves links to Readwise Reader to read or watch later |
-| [`twitter-bookmarks`](twitter-bookmarks/) | Syncs Twitter bookmarks |
+| [`twitter`](twitter/) | Syncs Twitter bookmarks |
 
 ## Using these workers yourself
 
