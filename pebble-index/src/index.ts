@@ -104,18 +104,6 @@ worker.webhook("onVoiceNote", {
 		"Receives a voice note from the Pebble Index 01 ring and creates a page in the configured database.",
 	execute: async (events, { notion }) => {
 		for (const event of events) {
-			// Log the full request: the ring's payload format is undocumented, and
-			// some deliveries arrive with an empty parsed body — the raw body and
-			// headers are the only way to see what it actually sent.
-			console.log(
-				`Delivery ${event.deliveryId}: ${event.method}`,
-				JSON.stringify({
-					headers: event.headers,
-					body: event.body,
-					rawBody: event.rawBody?.slice(0, 4000),
-				}),
-			);
-
 			const contentType = event.headers["content-type"] ?? "";
 			const payload =
 				contentType.includes("multipart/form-data") && event.rawBody
@@ -124,8 +112,15 @@ worker.webhook("onVoiceNote", {
 
 			const text = extractText(payload);
 			if (!text) {
+				// Dump the full request so an unrecognized payload shape can be
+				// diagnosed from `ntn workers runs logs`.
 				console.warn(
-					`Delivery ${event.deliveryId}: no text field found in payload, skipping`,
+					`Delivery ${event.deliveryId}: no text field found, skipping. ${event.method}`,
+					JSON.stringify({
+						headers: event.headers,
+						body: event.body,
+						rawBody: event.rawBody?.slice(0, 4000),
+					}),
 				);
 				continue;
 			}
