@@ -2,8 +2,6 @@
 
 [Notion Workers](https://developers.notion.com/workers/get-started/overview) are small TypeScript programs hosted by Notion that add tools to Notion custom agents, sync external data into databases, and receive webhooks. These are the workers I use in my personal workspace.
 
-Each top-level directory is one deployed worker — a self-contained npm project (own `package.json`, lockfile, `workers.json`). There are no shared dependencies and no root `package.json`; every command runs from inside a worker's directory.
-
 ## Workers
 
 | Worker | What it does |
