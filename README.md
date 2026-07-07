@@ -12,6 +12,7 @@ Each top-level directory is one deployed worker — a self-contained npm project
 | [`firecrawl`](firecrawl/) | Fetches web pages as markdown or screenshots via Firecrawl |
 | [`readwise`](readwise/) | Saves links to Readwise Reader to read or watch later |
 | [`twitter`](twitter/) | Syncs Twitter bookmarks |
+| [`pebble-index`](pebble-index/) | Turns Pebble Index 01 ring voice notes into database pages via webhook |
 
 ## Using these workers yourself
 
