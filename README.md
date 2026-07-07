@@ -18,10 +18,10 @@ Feel free to copy any worker into your own setup. The easiest way is to paste th
 
 ```text
 List the workers in https://github.com/colebemis/notion-workers and ask me
-which ones I want. Copy those directories into my project and set them up
-as my own Notion Workers: delete each workers.json (it points at the
-author's workspace — my first deploy creates my own), help me install the
-ntn CLI and run `ntn login` if I haven't, set the env vars listed in each
+which ones I want. Copy those directories here and set them up as my own
+Notion Workers: delete each workers.json (it points at the author's
+workspace — my first deploy creates my own), help me install the ntn CLI
+and run `ntn login` if I haven't, set the env vars listed in each
 worker's README, then deploy each with `ntn workers deploy --name <name>`
 and run one test call to verify.
 ```
