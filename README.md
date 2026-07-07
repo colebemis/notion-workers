@@ -29,7 +29,7 @@ and run one test call to verify.
 Or by hand:
 
 1. Copy the worker's directory.
-2. **Delete `workers.json`** (it points at my workspace).
+2. Delete `workers.json` (it points at my workspace).
 3. `ntn login`, add any required secrets (see the worker's README), then `ntn workers deploy --name <name>`.
 
 Everything below is how I develop the workers in this repo.
