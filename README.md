@@ -6,10 +6,10 @@
 
 | Worker | What it does |
 | :-- | :-- |
-| [`openlibrary`](openlibrary/) | Looks up book cover image URLs by ISBN from OpenLibrary |
-| [`firecrawl`](firecrawl/) | Fetches web pages as markdown or screenshots via Firecrawl |
-| [`readwise`](readwise/) | Saves links to Readwise Reader to read or watch later |
 | [`twitter`](twitter/) | Syncs Twitter bookmarks |
+| [`readwise`](readwise/) | Saves links to Readwise Reader to read or watch later |
+| [`firecrawl`](firecrawl/) | Fetches web pages as markdown or screenshots via Firecrawl |
+| [`openlibrary`](openlibrary/) | Looks up book cover image URLs by ISBN from OpenLibrary |
 | [`pebble-index`](pebble-index/) | Turns Pebble Index 01 ring voice notes into database pages via webhook |
 
 ## Using these workers yourself
