@@ -1,0 +1,4 @@
+{
+	"name": "notion-workers",
+	"install": "bash .cursor/install.sh"
+}
